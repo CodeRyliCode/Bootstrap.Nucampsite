@@ -5,7 +5,12 @@
   "main": "index.html",
   "scripts": {
     "lite": "lite-server",
+    "imagemin": "imagemin img/* -o dist/img",
+    "build": "npm run clean && npm run imagemin && npm run copyfonts && npm run usemin",
+    "clean": "rimraf dist",
+    "usemin": "usemin contactus.html -d dist --htmlmin -o dist/contactus.html && usemin aboutus.html -d dist --htmlmin -o dist/aboutus.html && usemin index.html -d dist --htmlmin -o dist/index.html",
     "watch:scss": "onchange \"css/*.scss\" -- npm run scss",
+    "copyfonts": "copyfiles -f node_modules/font-awesome/fonts/* dist/fonts",
     "watch:all": "parallelshell \"npm run watch:scss\" \"npm run lite\"",
     "scss": "node-sass -o css/ css/",
     "start": "npm run watch:all",
@@ -23,8 +28,11 @@
     "save-dev": "0.0.1-security"
   },
   "devDependencies": {
+    "imagemin-cli": "^5.1.0",
     "node-sass": "^4.14.1",
     "onchange": "^7.0.0",
-    "parallelshell": "3.0.1"
+    "parallelshell": "3.0.1",
+    "rimraf": "^3.0.2",
+    "usemin-cli": "^0.6.0"
   }
 }
